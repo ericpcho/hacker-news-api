@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/brianjb-lfl/hacker-news-api/issues"
   },
-  "homepage": "https://github.com/brianjb-lfl/hacker-news-api#readme"
+  "homepage": "https://github.com/brianjb-lfl/hacker-news-api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "knex": "^0.13.0",
+    "morgan": "^1.8.2",
+    "pg": "^7.3.0"
+  }
 }
