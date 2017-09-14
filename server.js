@@ -27,7 +27,7 @@ app.post('/api/stories', (req, res) => {
       //votes: 0
     })
     .into('news')
-    .returning('title')
+    .returning('title', 'url')
     .then(function(storyTitle) {
       console.log('ready to return');
       res.status(201).send(storyTitle);
@@ -41,6 +41,40 @@ app.get('/api/stories', (req, res) => {
     .orderBy('title')
     .then(results => res.json(results));
 });
+
+app.put('/api/stories/:id', (req, res) => {
+  console.log('running put', req.params.id);
+  knex('news')
+    .where('id', '=', req.params.id)
+    .increment('votes', 1)
+    .then(res.sendStatus(204));
+})
+
+let server;
+function runServer(){
+  const port = process.env.PORT || 8080;
+  return new Promise((resolve, reject) => {
+    server = app.listen(port, () => {
+      console.log(`Your app is listening on port ${port}`);
+      resolve(server);
+    }).on('error', err => {
+      reject(err);
+    });
+  });
+}
+
+function closeServer(){
+  return new Promise((resolve, reject) => {
+    console.log('closing server');
+    server.close(err => {
+      if (err){
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
+}
 
 
 /** if (require.main === module) ...
@@ -59,4 +93,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { app }; //! export app for testing
+module.exports = { app, runServer, closeServer }; //! export app for testing
