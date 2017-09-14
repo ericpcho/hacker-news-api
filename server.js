@@ -18,11 +18,37 @@ app.get('/', (req, res) => {
 });
 
 // ADD YOUR ENDPOINTS HERE
+app.post('/api/stories', (req, res) => {
+  console.log('running post');
+  knex
+    .insert({
+      title: req.body.title,
+      url: req.body.url,
+      //votes: 0
+    })
+    .into('news')
+    .returning('title')
+    .then(function(storyTitle) {
+      console.log('ready to return');
+      res.status(201).send(storyTitle);
+    });
+});
+
+app.get('/api/stories', (req, res) => {
+  console.log('running get');
+  knex.select()
+    .from('news')
+    .orderBy('title')
+    .then(results => res.json(results));
+});
+
 
 /** if (require.main === module) ...
  * Only run this block if file is run using `npm start` or `node server.js`
  * Fixes error: "Trying to open unclosed connection." when running mocha tests
  */
+
+
 if (require.main === module) {
   const server = app
     .listen(PORT, () => {
