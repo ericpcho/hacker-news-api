@@ -4,6 +4,7 @@ const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://localhost/hacker-
 
 exports.DATABASE = {
   client: 'pg',
+  user: 'dev',
   connection: DATABASE_URL,
   pool: { min: 0, max: 3 },
   debug: true

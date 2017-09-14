@@ -18,6 +18,7 @@
   "homepage": "https://github.com/brianjb-lfl/hacker-news-api#readme",
   "dependencies": {
     "body-parser": "^1.18.1",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "knex": "^0.13.0",
     "morgan": "^1.8.2",
