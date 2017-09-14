@@ -1,0 +1,19 @@
+{
+  "name": "hacker-news-api",
+  "version": "1.0.0",
+  "description": "Brian and Eric's backend review project for Thinkful (wk 4)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianjb-lfl/hacker-news-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brianjb-lfl/hacker-news-api/issues"
+  },
+  "homepage": "https://github.com/brianjb-lfl/hacker-news-api#readme"
+}
