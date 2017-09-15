@@ -9,9 +9,10 @@ const knex = require('knex')(DATABASE);
 
 // ADD YOUR ENDPOINTS HERE
 
-router.post('/', (req, res) => {
+router.post('/', jsonParser, (req, res) => {
   let newId;
   console.log('running post');
+  console.log(req.body);
   knex
     .insert({
       title: req.body.title,
