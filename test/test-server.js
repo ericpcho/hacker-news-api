@@ -1,19 +1,16 @@
 'use strict';
 
+require('dotenv').config()
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
 const should = chai.should();
 
-process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || 'postgresql://localhost/test-hacker-news';
+process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
 
 const { DATABASE, PORT } = require('../config');
 const knex = require('knex')(DATABASE);
-
 const { app, runServer, closeServer } = require('../server');
-
-// const { TEST_DATABASE, PORT } = require('./config');
-// const knex = require('knex')(TEST_DATABASE);
 
 
 chai.use(chaiHttp);
@@ -76,5 +73,37 @@ describe('Hacker News API', function () {
             })
       })
     })
+
+  it('should updated items on PUT', function() {
+    const updateData = {
+      title: "WEATHER",
+      url: "https://weather.com/"
+    }
+
+    return chai.request(app)
+    .get('/api/stories')
+    .then(function(res) {
+      updateData.id = res.body[0].id;
+      return chai.request(app)
+        .put(`/api/stories/${updateData.id}`)
+        .send(updateData);
+    })
+    .then(function(res) {
+      res.should.have.status(204);
+    })
+  })
+
+    it('should add an item on POST', function() {
+      const postNews = {title: 'GITHUB', url: 'https://github.com/'};
+      return chai.request(app)
+        .post('/api/stories')
+        .send(postNews)
+        .then(function(res) {
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('array');
+        })
+    })
+
   });
 }); 

@@ -1,6 +1,6 @@
 'use strict';
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://localhost/hacker-news';
+const DATABASE_URL = process.env.DATABASE_URL;
 
 exports.DATABASE = {
   client: 'pg',
